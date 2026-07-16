@@ -59,8 +59,8 @@ $asset_uri     = get_template_directory_uri() . '/assets/images/';
 				// but the main headings are now dynamic.
 				$services = array(
 					array( 'service-networking.avif', __( 'Exclusive Networking Events', 'amcham-drc' ), __( 'Connect with key business leaders, government officials, and potential partners at our regular exclusive events, fostering invaluable relationships.', 'amcham-drc' ) ),
-					array( 'service-advocacy.avif', __( 'Strong Business Advocacy', 'amcham-drc' ), __( 'Benefit from AmCham DRC’s powerful voice in advocating for a favorable business climate, policy reforms, and fair trade practices.', 'amcham-drc' ) ),
-					array( 'service-intelligence.avif', __( 'Access to Market Intelligence', 'amcham-drc' ), __( 'Gain a competitive edge with exclusive in-depth market reports, economic analyses, and sector insights specific to the DRC.', 'amcham-drc' ) ),
+					array( 'service-advocacy.png', __( 'Strong Business Advocacy', 'amcham-drc' ), __( 'Benefit from AmCham DRC’s powerful voice in advocating for a favorable business climate, policy reforms, and fair trade practices.', 'amcham-drc' ) ),
+					array( 'service-intelligence.png', __( 'Access to Market Intelligence', 'amcham-drc' ), __( 'Gain a competitive edge with exclusive in-depth market reports, economic analyses, and sector insights specific to the DRC.', 'amcham-drc' ) ),
 					array( 'service-matching.avif', __( 'Tailored Business Matching', 'amcham-drc' ), __( 'Identify and connect with suitable partners, suppliers, or clients to support market entry and expansion.', 'amcham-drc' ) ),
 				);
 				foreach ( $services as $service ) :

@@ -20,47 +20,47 @@ get_header();
 	</section>
 
 	<!-- Committees Grid -->
-	<section class="section">
+	<section class="section" style="background: var(--paper);">
 		<div class="shell">
 			<?php
 			$committees = array(
 				array(
-					'icon'   => '⛏️',
+					'icon'   => '<svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
 					'name'   => 'Mining & Natural Resources',
 					'desc'   => 'Addresses policy, regulatory, and operational challenges facing the extractive industries sector in the DRC.',
 					'focus'  => array( 'Mining Code Updates', 'Environmental Compliance', 'Community Relations', 'Supply Chain' ),
 					'chair'  => 'Committee Chair: TBD',
 				),
 				array(
-					'icon'   => '💻',
+					'icon'   => '<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
 					'name'   => 'Technology & Digital Economy',
 					'desc'   => 'Promotes digital transformation, fintech, and ICT investment opportunities across the DRC.',
 					'focus'  => array( 'Digital Infrastructure', 'Fintech Regulation', 'E-Commerce', 'Cybersecurity' ),
 					'chair'  => 'Committee Chair: TBD',
 				),
 				array(
-					'icon'   => '🌿',
+					'icon'   => '<svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 4 13V4a7 7 0 0 1 7 7 7 7 0 0 1 7-7v9a7 7 0 0 1-7 7z"/></svg>',
 					'name'   => 'Agriculture & Agribusiness',
 					'desc'   => 'Advocates for investment-friendly policies in the agricultural sector and food security.',
 					'focus'  => array( 'Land Rights', 'Supply Chain', 'Export Facilitation', 'Food Security' ),
 					'chair'  => 'Committee Chair: TBD',
 				),
 				array(
-					'icon'   => '⚡',
+					'icon'   => '<svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
 					'name'   => 'Energy & Infrastructure',
 					'desc'   => 'Works to improve the DRC\'s energy landscape and infrastructure development policies.',
 					'focus'  => array( 'Power Generation', 'PPP Frameworks', 'Renewable Energy', 'Logistics' ),
 					'chair'  => 'Committee Chair: TBD',
 				),
 				array(
-					'icon'   => '🏦',
+					'icon'   => '<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
 					'name'   => 'Finance & Banking',
 					'desc'   => 'Engages with financial regulators to promote a stable and transparent banking environment.',
 					'focus'  => array( 'Banking Regulation', 'Microfinance', 'FDI Frameworks', 'Currency Stability' ),
 					'chair'  => 'Committee Chair: TBD',
 				),
 				array(
-					'icon'   => '⚖️',
+					'icon'   => '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>',
 					'name'   => 'Legal & Regulatory Affairs',
 					'desc'   => 'Monitors legislative developments and provides advocacy on business law reform.',
 					'focus'  => array( 'Contract Enforcement', 'IP Rights', 'Arbitration', 'Tax Policy' ),

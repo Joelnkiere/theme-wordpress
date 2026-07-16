@@ -21,16 +21,20 @@ $asset_uri = get_template_directory_uri() . '/assets/images/';
 	</section>
 
 	<!-- Mission & Vision -->
-	<section class="section">
+	<section class="section" style="background: var(--paper);">
 		<div class="shell">
 			<div class="cards-2col">
 				<div class="info-card">
-					<div class="info-card__icon">🎯</div>
+					<div class="info-card__icon icon-circle">
+						<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="12" r="3"/></svg>
+					</div>
 					<h2><?php esc_html_e( 'Our Mission', 'amcham-drc' ); ?></h2>
 					<p><?php esc_html_e( 'To promote and facilitate trade and investment between the United States and the Democratic Republic of Congo by providing advocacy, networking opportunities, and business intelligence to our members.', 'amcham-drc' ); ?></p>
 				</div>
 				<div class="info-card">
-					<div class="info-card__icon">📈</div>
+					<div class="info-card__icon icon-circle">
+						<svg viewBox="0 0 24 24"><path d="M2 20h20M5 16l4-4 4 4 6-6M15 10V6h4v4"/></svg>
+					</div>
 					<h2><?php esc_html_e( 'Our Vision', 'amcham-drc' ); ?></h2>
 					<p><?php esc_html_e( 'To be the leading voice of American business in the DRC, driving sustainable economic development and creating lasting partnerships that benefit both nations.', 'amcham-drc' ); ?></p>
 				</div>
@@ -39,7 +43,7 @@ $asset_uri = get_template_directory_uri() . '/assets/images/';
 	</section>
 
 	<!-- What We Do -->
-	<section class="section" style="background: var(--paper);">
+	<section class="section">
 		<div class="shell">
 			<div class="section-heading section-heading--center">
 				<h2><?php esc_html_e( 'What We Do', 'amcham-drc' ); ?></h2>
@@ -48,14 +52,14 @@ $asset_uri = get_template_directory_uri() . '/assets/images/';
 			<div class="service-grid" style="margin-top: 3rem;">
 				<?php
 				$services = array(
-					array( '🤝', __( 'Business Matchmaking', 'amcham-drc' ), __( 'Connecting US and DRC businesses for strategic partnerships and investment opportunities.', 'amcham-drc' ) ),
-					array( '🌍', __( 'Networking Events', 'amcham-drc' ), __( 'Exclusive events designed to foster connections, share insights, and build a strong business community.', 'amcham-drc' ) ),
-					array( '📢', __( 'Advocacy & Dialogue', 'amcham-drc' ), __( 'Representing member interests and promoting a favorable business climate in the DRC.', 'amcham-drc' ) ),
-					array( '📊', __( 'Market Intelligence', 'amcham-drc' ), __( 'Providing critical market intelligence and guidance for successful entry into the DRC market.', 'amcham-drc' ) ),
+					array( '<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>', __( 'Business Matchmaking', 'amcham-drc' ), __( 'Connecting US and DRC businesses for strategic partnerships and investment opportunities.', 'amcham-drc' ) ),
+					array( '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', __( 'Networking Events', 'amcham-drc' ), __( 'Exclusive events designed to foster connections, share insights, and build a strong business community.', 'amcham-drc' ) ),
+					array( '<svg viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3zM11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>', __( 'Advocacy & Dialogue', 'amcham-drc' ), __( 'Representing member interests and promoting a favorable business climate in the DRC.', 'amcham-drc' ) ),
+					array( '<svg viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83M22 12A10 10 0 0 0 12 2v10z"/></svg>', __( 'Market Intelligence', 'amcham-drc' ), __( 'Providing critical market intelligence and guidance for successful entry into the DRC market.', 'amcham-drc' ) ),
 				);
 				foreach ( $services as $s ) : ?>
-					<article class="service-card">
-						<div style="padding: 2rem 1.75rem 0;font-size: 2rem;"><?php echo $s[0]; ?></div>
+					<article class="service-card service-card--icon">
+						<div class="icon-circle" style="margin-bottom: 1rem;"><?php echo $s[0]; ?></div>
 						<div>
 							<h3><?php echo esc_html( $s[1] ); ?></h3>
 							<p><?php echo esc_html( $s[2] ); ?></p>
@@ -67,7 +71,7 @@ $asset_uri = get_template_directory_uri() . '/assets/images/';
 	</section>
 
 	<!-- Board of Directors -->
-	<section class="section">
+	<section class="section" style="background: var(--paper);">
 		<div class="shell">
 			<div class="section-heading section-heading--center">
 				<h2><?php esc_html_e( 'Our Board of Directors', 'amcham-drc' ); ?></h2>
@@ -85,7 +89,9 @@ $asset_uri = get_template_directory_uri() . '/assets/images/';
 				foreach ( $board as $member ) : ?>
 					<article class="team-card">
 						<div class="team-card__image-wrap">
-							<div class="team-card__placeholder">👤</div>
+							<div class="team-card__placeholder">
+								<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+							</div>
 						</div>
 						<div class="team-card__content">
 							<span class="team-card__role"><?php echo esc_html( $member[0] ); ?></span>
@@ -107,14 +113,14 @@ $asset_uri = get_template_directory_uri() . '/assets/images/';
 			<div class="core-values-grid" style="max-width: 860px; margin: 3rem auto 0;">
 				<?php
 				$values = array(
-					array( '🤝', 'Integrity', 'We conduct our business with honesty, transparency, and ethical practices, building trust with all stakeholders.' ),
-					array( '🌍', 'Collaboration', 'We foster partnerships and cooperation between American and Congolese businesses to create mutual growth opportunities.' ),
-					array( '💡', 'Innovation', 'We embrace new ideas and approaches to address the evolving challenges and opportunities in the DRC market.' ),
-					array( '🌱', 'Sustainability', 'We promote responsible business practices that support long-term economic growth and social development.' ),
+					array( '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', 'Integrity', 'We conduct our business with honesty, transparency, and ethical practices, building trust with all stakeholders.' ),
+					array( '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>', 'Collaboration', 'We foster partnerships and cooperation between American and Congolese businesses to create mutual growth opportunities.' ),
+					array( '<svg viewBox="0 0 24 24"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/><circle cx="12" cy="12" r="4"/></svg>', 'Innovation', 'We embrace new ideas and approaches to address the evolving challenges and opportunities in the DRC market.' ),
+					array( '<svg viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z"/></svg>', 'Sustainability', 'We promote responsible business practices that support long-term economic growth and social development.' ),
 				);
 				foreach ( $values as $v ) : ?>
 					<article class="cv-card">
-						<div class="cv-card__icon"><?php echo $v[0]; ?></div>
+						<div class="cv-card__icon icon-circle"><?php echo $v[0]; ?></div>
 						<h3><?php echo esc_html( $v[1] ); ?></h3>
 						<p><?php echo esc_html( $v[2] ); ?></p>
 					</article>

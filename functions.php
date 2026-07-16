@@ -51,6 +51,7 @@ function amcham_drc_enqueue_assets() {
 	wp_enqueue_style( 'amcham-drc-style', get_stylesheet_uri(), array(), $version );
 	wp_enqueue_style( 'amcham-drc-theme', get_template_directory_uri() . '/assets/css/theme.css', array( 'amcham-drc-style' ), $version );
 	wp_enqueue_script( 'amcham-drc-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), $version, true );
+	wp_enqueue_script( 'amcham-drc-scroll', get_template_directory_uri() . '/assets/js/scroll-animations.js', array(), $version, true );
 
 	if ( get_theme_mod( 'amcham_enable_chatbot', false ) ) {
 		wp_enqueue_script( 'amcham-drc-chatbot', get_template_directory_uri() . '/assets/js/chatbot.js', array(), $version, true );
@@ -66,6 +67,7 @@ function amcham_drc_menu_fallback() {
 		array( __( 'Home', 'amcham-drc' ), home_url( '/' ) ),
 		array( __( 'About Us', 'amcham-drc' ), home_url( '/about/' ) ),
 		array( __( 'Events', 'amcham-drc' ), home_url( '/events/' ) ),
+		array( __( 'News', 'amcham-drc' ), home_url( '/news/' ) ),
 		array( __( 'Partners', 'amcham-drc' ), home_url( '/partners/' ) ),
 		array( __( 'Membership', 'amcham-drc' ), home_url( '/membership/' ) ),
 		array( __( 'Resources', 'amcham-drc' ), home_url( '/resources/' ) ),

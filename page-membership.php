@@ -124,13 +124,13 @@ get_header();
 			<div class="sponsor-grid">
 				<?php
 				$sponsors = array(
-					array( '👑', 'Platinum Sponsor', 'Premium visibility at all major AmCham DRC events and initiatives.', array( 'Logo on all event materials', 'Speaking opportunity at events', 'Premium booth', 'Exclusive networking reception', 'Annual recognition dinner' ) ),
-					array( '⭐', 'Gold Sponsor', 'Strong brand presence at key AmCham DRC events throughout the year.', array( 'Logo on event materials', 'Standard booth at events', 'Networking reception access', 'Member newsletter feature', 'Website recognition' ) ),
-					array( '✨', 'Silver Sponsor', 'Growing brand visibility in AmCham DRC community activities.', array( 'Event attendance', 'Website listing', 'Newsletter mention', 'Networking access', 'Member directory' ) ),
+					array( '<svg viewBox="0 0 24 24"><path d="M2 20h20M4 16l3-8 5 4 5-4 3 8H4zM12 8V4M12 4L10 6M12 4l2 2"/></svg>', 'Platinum Sponsor', 'Premium visibility at all major AmCham DRC events and initiatives.', array( 'Logo on all event materials', 'Speaking opportunity at events', 'Premium booth', 'Exclusive networking reception', 'Annual recognition dinner' ) ),
+					array( '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>', 'Gold Sponsor', 'Strong brand presence at key AmCham DRC events throughout the year.', array( 'Logo on event materials', 'Standard booth at events', 'Networking reception access', 'Member newsletter feature', 'Website recognition' ) ),
+					array( '<svg viewBox="0 0 24 24"><path d="M12 17l-5.88 3.1 1.12-6.54-4.75-4.63 6.57-.95L12 2l2.94 5.98 6.57.95-4.75 4.63 1.12 6.54z"/><path d="M12 2v15"/></svg>', 'Silver Sponsor', 'Growing brand visibility in AmCham DRC community activities.', array( 'Event attendance', 'Website listing', 'Newsletter mention', 'Networking access', 'Member directory' ) ),
 				);
 				foreach ( $sponsors as $s ) : ?>
 					<div class="info-card" style="text-align: left;">
-						<div class="info-card__icon"><?php echo $s[0]; ?></div>
+						<div class="info-card__icon icon-circle icon-circle--lg" style="margin-bottom: 1.5rem;"><?php echo $s[0]; ?></div>
 						<h3><?php echo esc_html( $s[1] ); ?></h3>
 						<p><?php echo esc_html( $s[2] ); ?></p>
 						<ul style="list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.4rem;">

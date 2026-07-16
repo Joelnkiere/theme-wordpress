@@ -36,16 +36,22 @@
 			<span></span><span></span><span></span>
 		</button>
 		<nav class="primary-navigation" id="primary-menu" aria-label="<?php esc_attr_e( 'Primary navigation', 'amcham-drc' ); ?>" data-primary-nav>
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'primary',
-					'container'      => false,
-					'fallback_cb'    => 'amcham_drc_menu_fallback',
-					'menu_class'     => 'menu',
-				)
-			);
-			?>
+			<div class="primary-navigation__inner">
+				<?php
+				wp_nav_menu(
+					array(
+						'theme_location' => 'primary',
+						'container'      => false,
+						'fallback_cb'    => 'amcham_drc_menu_fallback',
+						'menu_class'     => 'menu',
+					)
+				);
+				?>
+				<a href="<?php echo esc_url( home_url( '/chatbot/' ) ); ?>" class="nav-chatbot-link button button--outline" style="min-height: 40px; padding: 0 16px; font-size: 11px; flex-shrink: 0; margin-bottom: 0;">
+					<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+					<?php esc_html_e( 'Ask AI', 'amcham-drc' ); ?>
+				</a>
+			</div>
 		</nav>
 	</div>
 </header>

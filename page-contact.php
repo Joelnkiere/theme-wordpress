@@ -24,7 +24,9 @@ get_header();
 		<div class="shell">
 			<div class="cards-3col">
 				<div class="info-card">
-					<div class="info-card__icon">✉️</div>
+					<div class="info-card__icon icon-circle">
+						<svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+					</div>
 					<h3><?php esc_html_e( 'Email', 'amcham-drc' ); ?></h3>
 					<p><?php esc_html_e( 'General Inquiries:', 'amcham-drc' ); ?></p>
 					<a href="mailto:info@amchamdrc.org" style="color: var(--red); font-weight: 600;">info@amchamdrc.org</a>
@@ -32,14 +34,18 @@ get_header();
 					<a href="mailto:membership@amchamdrc.org" style="color: var(--red); font-weight: 600;">membership@amchamdrc.org</a>
 				</div>
 				<div class="info-card">
-					<div class="info-card__icon">📞</div>
+					<div class="info-card__icon icon-circle">
+						<svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+					</div>
 					<h3><?php esc_html_e( 'Phone', 'amcham-drc' ); ?></h3>
 					<p><?php esc_html_e( 'Main Office:', 'amcham-drc' ); ?></p>
 					<a href="tel:+243123456789" style="color: var(--red); font-weight: 600; font-size: 1.1rem;">+243 (0) 123 456 789</a>
 					<p style="margin-top: 1rem; font-size: 0.9rem; color: var(--ink-muted);"><?php esc_html_e( 'Monday - Friday: 9:00 AM - 5:00 PM (CAT)', 'amcham-drc' ); ?></p>
 				</div>
 				<div class="info-card">
-					<div class="info-card__icon">📍</div>
+					<div class="info-card__icon icon-circle">
+						<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+					</div>
 					<h3><?php esc_html_e( 'Address', 'amcham-drc' ); ?></h3>
 					<p style="line-height: 1.9;">
 						AmCham DRC<br>
