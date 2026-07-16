@@ -29,9 +29,9 @@ get_header();
 					</div>
 					<h3><?php esc_html_e( 'Email', 'amcham-drc' ); ?></h3>
 					<p><?php esc_html_e( 'General Inquiries:', 'amcham-drc' ); ?></p>
-					<a href="mailto:info@amchamdrc.org" style="color: var(--red); font-weight: 600;">info@amchamdrc.org</a>
+					<a href="mailto:<?php echo esc_attr( amcham_drc_theme_mod( 'contact_email', 'info@amchamdrc.org' ) ); ?>" style="color: var(--red); font-weight: 600;"><?php echo esc_html( amcham_drc_theme_mod( 'contact_email', 'info@amchamdrc.org' ) ); ?></a>
 					<p style="margin-top: 1rem;"><?php esc_html_e( 'Membership:', 'amcham-drc' ); ?></p>
-					<a href="mailto:membership@amchamdrc.org" style="color: var(--red); font-weight: 600;">membership@amchamdrc.org</a>
+					<a href="mailto:<?php echo esc_attr( amcham_drc_theme_mod( 'contact_membership_email', 'membership@amchamdrc.org' ) ); ?>" style="color: var(--red); font-weight: 600;"><?php echo esc_html( amcham_drc_theme_mod( 'contact_membership_email', 'membership@amchamdrc.org' ) ); ?></a>
 				</div>
 				<div class="info-card">
 					<div class="info-card__icon icon-circle">
@@ -39,19 +39,16 @@ get_header();
 					</div>
 					<h3><?php esc_html_e( 'Phone', 'amcham-drc' ); ?></h3>
 					<p><?php esc_html_e( 'Main Office:', 'amcham-drc' ); ?></p>
-					<a href="tel:+243123456789" style="color: var(--red); font-weight: 600; font-size: 1.1rem;">+243 (0) 123 456 789</a>
-					<p style="margin-top: 1rem; font-size: 0.9rem; color: var(--ink-muted);"><?php esc_html_e( 'Monday - Friday: 9:00 AM - 5:00 PM (CAT)', 'amcham-drc' ); ?></p>
+					<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', amcham_drc_theme_mod( 'contact_phone', '+243 (0) 123 456 789' ) ) ); ?>" style="color: var(--red); font-weight: 600; font-size: 1.1rem;"><?php echo esc_html( amcham_drc_theme_mod( 'contact_phone', '+243 (0) 123 456 789' ) ); ?></a>
+					<p style="margin-top: 1rem; font-size: 0.9rem; color: var(--ink-muted);"><?php echo esc_html( amcham_drc_theme_mod( 'contact_hours', 'Monday - Friday: 9:00 AM - 5:00 PM (CAT)' ) ); ?></p>
 				</div>
 				<div class="info-card">
 					<div class="info-card__icon icon-circle">
 						<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
 					</div>
 					<h3><?php esc_html_e( 'Address', 'amcham-drc' ); ?></h3>
-					<p style="line-height: 1.9;">
-						AmCham DRC<br>
-						<?php esc_html_e( 'Avenue de la Paix', 'amcham-drc' ); ?><br>
-						<?php esc_html_e( 'Kinshasa, Democratic Republic of Congo', 'amcham-drc' ); ?><br>
-						<span style="font-size: 0.9rem; color: var(--ink-muted);">P.O. Box 12345</span>
+					<p style="line-height: 1.9; white-space: pre-wrap;">
+<?php echo esc_html( amcham_drc_theme_mod( 'contact_address', "AmCham DRC\nAvenue de la Paix\nKinshasa, Democratic Republic of Congo\nP.O. Box 12345" ) ); ?>
 					</p>
 				</div>
 			</div>
@@ -65,7 +62,7 @@ get_header();
 					loading="lazy"
 					allowfullscreen
 					referrerpolicy="no-referrer-when-downgrade"
-					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126716.69386178!2d15.2345!3d-4.3217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a6a330b7c8bb73d%3A0x9f7f4c2a6c748d8a!2sKinshasa%2C%20Democratic%20Republic%20of%20the%20Congo!5e0!3m2!1sen!2sus!4v1699900000000"
+					src="<?php echo esc_url( amcham_drc_theme_mod( 'contact_map_url', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126716.69386178!2d15.2345!3d-4.3217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a6a330b7c8bb73d%3A0x9f7f4c2a6c748d8a!2sKinshasa%2C%20Democratic%20Republic%20of%20the%20Congo!5e0!3m2!1sen!2sus!4v1699900000000' ) ); ?>"
 				></iframe>
 			</div>
 		</div>

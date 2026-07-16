@@ -18,6 +18,9 @@ get_header();
 		</div>
 		<div class="chat-page-fullscreen__window">
 			<div class="chat-page__header">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="chat-page__back-btn" aria-label="Back" style="display: none;">
+					<svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+				</a>
 				<div class="chat-page__header-dot"></div>
 				<h3><?php esc_html_e( 'AI Assistant', 'amcham-drc' ); ?></h3>
 				<span><?php esc_html_e( 'Online', 'amcham-drc' ); ?></span>

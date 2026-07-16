@@ -28,6 +28,43 @@ get_header();
 			</div>
 
 			<div class="pricing-grid">
+				<?php
+				$args_mem = array(
+					'post_type'      => 'amcham_membership',
+					'posts_per_page' => -1,
+					'orderby'        => 'menu_order title',
+					'order'          => 'ASC',
+				);
+				$query_mem = new WP_Query( $args_mem );
+
+				if ( $query_mem->have_posts() ) :
+					while ( $query_mem->have_posts() ) : $query_mem->the_post();
+						$price = get_post_meta( get_the_ID(), '_amcham_price', true );
+						$is_featured = get_post_meta( get_the_ID(), '_amcham_is_featured', true );
+						$features_raw = get_the_content();
+						$features = array_filter( array_map( 'trim', explode( "\n", strip_tags( $features_raw ) ) ) );
+						
+						$featured_class = ( '1' === $is_featured ) ? 'pricing-card--featured' : '';
+						$button_class = ( '1' === $is_featured ) ? 'button--red' : 'button--outline';
+						?>
+						<div class="pricing-card <?php echo esc_attr( $featured_class ); ?>">
+							<?php if ( '1' === $is_featured ) : ?><div class="pricing-card__bar"></div><?php endif; ?>
+							<h3><?php the_title(); ?></h3>
+							<div class="pricing-card__price"><span><?php echo esc_html( $price ); ?></span></div>
+							<p><?php echo get_the_excerpt(); ?></p>
+							<ul class="pricing-card__features">
+								<?php foreach ( $features as $f ) : ?>
+									<li><span class="pricing-card__check">✓</span> <?php echo esc_html( $f ); ?></li>
+								<?php endforeach; ?>
+							</ul>
+							<a href="#apply" class="button <?php echo esc_attr( $button_class ); ?>"><?php esc_html_e( 'Apply Now', 'amcham-drc' ); ?> →</a>
+						</div>
+						<?php
+					endwhile;
+					wp_reset_postdata();
+				else :
+					// Fallback
+				?>
 				<!-- Corporate -->
 				<div class="pricing-card pricing-card--featured">
 					<div class="pricing-card__bar"></div>
@@ -54,6 +91,7 @@ get_header();
 					</ul>
 					<a href="#apply" class="button button--outline"><?php esc_html_e( 'Apply Now', 'amcham-drc' ); ?> →</a>
 				</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</section>
@@ -98,10 +136,27 @@ get_header();
 					<div class="amcham-form__field">
 						<label for="mem_type"><?php esc_html_e( 'Membership Type *', 'amcham-drc' ); ?></label>
 						<select id="mem_type" name="mem_type" required>
-							<option value=""><?php esc_html_e( 'Select a type...', 'amcham-drc' ); ?></option>
+						<option value=""><?php esc_html_e( 'Select a type...', 'amcham-drc' ); ?></option>
+						<?php
+						$tiers = new WP_Query( array(
+							'post_type'      => 'amcham_membership',
+							'posts_per_page' => -1,
+							'orderby'        => 'menu_order title',
+							'order'          => 'ASC',
+						) );
+						if ( $tiers->have_posts() ) :
+							while ( $tiers->have_posts() ) : $tiers->the_post();
+								$price = get_post_meta( get_the_ID(), '_amcham_price', true );
+								$label = get_the_title() . ( $price ? ' (' . esc_html( $price ) . ')' : '' );
+								?>
+								<option value="<?php echo esc_attr( sanitize_title( get_the_title() ) ); ?>"><?php echo esc_html( $label ); ?></option>
+							<?php endwhile;
+							wp_reset_postdata();
+						else : ?>
 							<option value="corporate"><?php esc_html_e( 'Corporate ($2,000/yr)', 'amcham-drc' ); ?></option>
 							<option value="ngo"><?php esc_html_e( 'NGO ($1,000/yr)', 'amcham-drc' ); ?></option>
-						</select>
+						<?php endif; ?>
+					</select>
 					</div>
 					<div class="amcham-form__field">
 						<label for="mem_message"><?php esc_html_e( 'Tell us about your business *', 'amcham-drc' ); ?></label>
@@ -123,24 +178,63 @@ get_header();
 			</div>
 			<div class="sponsor-grid">
 				<?php
-				$sponsors = array(
-					array( '<svg viewBox="0 0 24 24"><path d="M2 20h20M4 16l3-8 5 4 5-4 3 8H4zM12 8V4M12 4L10 6M12 4l2 2"/></svg>', 'Platinum Sponsor', 'Premium visibility at all major AmCham DRC events and initiatives.', array( 'Logo on all event materials', 'Speaking opportunity at events', 'Premium booth', 'Exclusive networking reception', 'Annual recognition dinner' ) ),
-					array( '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>', 'Gold Sponsor', 'Strong brand presence at key AmCham DRC events throughout the year.', array( 'Logo on event materials', 'Standard booth at events', 'Networking reception access', 'Member newsletter feature', 'Website recognition' ) ),
-					array( '<svg viewBox="0 0 24 24"><path d="M12 17l-5.88 3.1 1.12-6.54-4.75-4.63 6.57-.95L12 2l2.94 5.98 6.57.95-4.75 4.63 1.12 6.54z"/><path d="M12 2v15"/></svg>', 'Silver Sponsor', 'Growing brand visibility in AmCham DRC community activities.', array( 'Event attendance', 'Website listing', 'Newsletter mention', 'Networking access', 'Member directory' ) ),
+				$args_spon = array(
+					'post_type'      => 'amcham_sponsor',
+					'posts_per_page' => -1,
+					'orderby'        => 'menu_order title',
+					'order'          => 'ASC',
 				);
-				foreach ( $sponsors as $s ) : ?>
-					<div class="info-card" style="text-align: left;">
-						<div class="info-card__icon icon-circle icon-circle--lg" style="margin-bottom: 1.5rem;"><?php echo $s[0]; ?></div>
-						<h3><?php echo esc_html( $s[1] ); ?></h3>
-						<p><?php echo esc_html( $s[2] ); ?></p>
-						<ul style="list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.4rem;">
-							<?php foreach ( $s[3] as $b ) : ?>
-								<li style="font-size: 0.9rem; color: var(--ink-muted);">• <?php echo esc_html( $b ); ?></li>
-							<?php endforeach; ?>
-						</ul>
-						<a href="#apply" class="text-link"><?php esc_html_e( 'Inquire', 'amcham-drc' ); ?> →</a>
-					</div>
-				<?php endforeach; ?>
+				$query_spon = new WP_Query( $args_spon );
+
+				if ( $query_spon->have_posts() ) :
+					$icons = array(
+						'<svg viewBox="0 0 24 24"><path d="M2 20h20M4 16l3-8 5 4 5-4 3 8H4zM12 8V4M12 4L10 6M12 4l2 2"/></svg>',
+						'<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+						'<svg viewBox="0 0 24 24"><path d="M12 17l-5.88 3.1 1.12-6.54-4.75-4.63 6.57-.95L12 2l2.94 5.98 6.57.95-4.75 4.63 1.12 6.54z"/><path d="M12 2v15"/></svg>'
+					);
+					$i = 0;
+					while ( $query_spon->have_posts() ) : $query_spon->the_post();
+						$benefits_raw = get_the_content();
+						$benefits = array_filter( array_map( 'trim', explode( "\n", strip_tags( $benefits_raw ) ) ) );
+						$icon = $icons[ $i % count( $icons ) ];
+						$i++;
+						?>
+						<div class="info-card" style="text-align: left;">
+							<div class="info-card__icon icon-circle icon-circle--lg" style="margin-bottom: 1.5rem;"><?php echo $icon; ?></div>
+							<h3><?php the_title(); ?></h3>
+							<p><?php echo get_the_excerpt(); ?></p>
+							<ul style="list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.4rem;">
+								<?php foreach ( $benefits as $b ) : ?>
+									<li style="font-size: 0.9rem; color: var(--ink-muted);">• <?php echo esc_html( $b ); ?></li>
+								<?php endforeach; ?>
+							</ul>
+							<a href="#apply" class="text-link"><?php esc_html_e( 'Inquire', 'amcham-drc' ); ?> →</a>
+						</div>
+						<?php
+					endwhile;
+					wp_reset_postdata();
+				else :
+					// Fallback
+					$sponsors = array(
+						array( '<svg viewBox="0 0 24 24"><path d="M2 20h20M4 16l3-8 5 4 5-4 3 8H4zM12 8V4M12 4L10 6M12 4l2 2"/></svg>', 'Platinum Sponsor', 'Premium visibility at all major AmCham DRC events and initiatives.', array( 'Logo on all event materials', 'Speaking opportunity at events', 'Premium booth', 'Exclusive networking reception', 'Annual recognition dinner' ) ),
+						array( '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>', 'Gold Sponsor', 'Strong brand presence at key AmCham DRC events throughout the year.', array( 'Logo on event materials', 'Standard booth at events', 'Networking reception access', 'Member newsletter feature', 'Website recognition' ) ),
+						array( '<svg viewBox="0 0 24 24"><path d="M12 17l-5.88 3.1 1.12-6.54-4.75-4.63 6.57-.95L12 2l2.94 5.98 6.57.95-4.75 4.63 1.12 6.54z"/><path d="M12 2v15"/></svg>', 'Silver Sponsor', 'Growing brand visibility in AmCham DRC community activities.', array( 'Event attendance', 'Website listing', 'Newsletter mention', 'Networking access', 'Member directory' ) ),
+					);
+					foreach ( $sponsors as $s ) : ?>
+						<div class="info-card" style="text-align: left;">
+							<div class="info-card__icon icon-circle icon-circle--lg" style="margin-bottom: 1.5rem;"><?php echo $s[0]; ?></div>
+							<h3><?php echo esc_html( $s[1] ); ?></h3>
+							<p><?php echo esc_html( $s[2] ); ?></p>
+							<ul style="list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.4rem;">
+								<?php foreach ( $s[3] as $b ) : ?>
+									<li style="font-size: 0.9rem; color: var(--ink-muted);">• <?php echo esc_html( $b ); ?></li>
+								<?php endforeach; ?>
+							</ul>
+							<a href="#apply" class="text-link"><?php esc_html_e( 'Inquire', 'amcham-drc' ); ?> →</a>
+						</div>
+					<?php endforeach; 
+				endif;
+				?>
 			</div>
 		</div>
 	</section>

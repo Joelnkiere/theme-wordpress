@@ -304,6 +304,8 @@ h3 { font-family: var(--serif); font-size: 1.55rem; letter-spacing: -.035em; lin
 .team-card__image-wrap { background: linear-gradient(135deg, #f0f3f6, #e8ecf0); height: 200px; display: flex; align-items: center; justify-content: center; }
 .team-card__placeholder { color: var(--ink-muted); opacity: 0.25; }
 .team-card__placeholder svg { width: 64px; height: 64px; fill: currentColor; }
+.team-card__photo { width: 100%; height: 100%; object-fit: cover; }
+.team-card__initials { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; font-weight: 700; color: var(--white); text-shadow: 0 2px 10px rgba(0,0,0,0.15); letter-spacing: 0.05em; }
 .team-card__content { padding: 1.5rem; }
 .team-card__role { display: inline-block; background: rgba(178,31,53,0.1); color: var(--red); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 12px; border-radius: 20px; margin-bottom: 0.75rem; }
 .team-card h3 { font-size: 1.25rem; margin-bottom: 0.25rem; }
@@ -626,7 +628,43 @@ h3 { font-family: var(--serif); font-size: 1.55rem; letter-spacing: -.035em; lin
   .amcham-form__row { grid-template-columns: 1fr; }
   .page-hero { padding: 5rem 0 3.5rem; }
   .page-hero h1 { font-size: clamp(2.2rem, 10vw, 3.5rem); }
-  .chat-page-fullscreen__content { grid-template-columns: 1fr; gap: 2rem; }
-  .chat-page-fullscreen__window { height: 500px; }
   .single-article__nav { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 900px) {
+  body.page-template-page-chatbot .site-header,
+  body.page-template-page-chatbot .site-footer { display: none !important; }
+  .chat-page-fullscreen { padding: 0 !important; height: 100dvh !important; min-height: 100dvh !important; display: flex !important; flex-direction: column !important; align-items: stretch !important; justify-content: stretch !important; }
+  .chat-page-fullscreen__content { display: flex !important; flex-direction: column !important; width: 100% !important; max-width: 100% !important; height: 100% !important; padding: 0 !important; margin: 0 !important; gap: 0 !important; }
+  .chat-page-fullscreen__text { display: none !important; }
+  .chat-page-fullscreen__window { border-radius: 0 !important; border: none !important; box-shadow: none !important; height: 100% !important; max-height: none !important; flex: 1 !important; margin: 0 !important; }
+  .chat-page__back-btn { display: inline-flex !important; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 50%; margin-right: 12px; color: var(--white); text-decoration: none; transition: background 0.2s; }
+  .chat-page__back-btn:hover { background: rgba(255,255,255,0.3); }
+}
+
+/* ──── Comments ──── */
+.comments-area { margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--rule); }
+.comments-area .comments-title { font-family: var(--serif); font-size: 1.6rem; margin-bottom: 2rem; }
+.comment-list { list-style: none; padding: 0; margin: 0; }
+.comment-list .comment { margin-bottom: 2rem; padding: 1.5rem; background: var(--white); border-radius: 8px; border: 1px solid var(--rule); }
+.comment-list .comment .comment-author { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+.comment-list .comment .comment-author img { border-radius: 50%; }
+.comment-list .comment .comment-author .fn { font-weight: 700; color: var(--ink); }
+.comment-list .comment .comment-metadata { font-size: 0.8rem; color: var(--ink-muted); margin-bottom: 1rem; }
+.comment-list .comment .comment-content p { margin: 0; line-height: 1.7; }
+.comment-list .children { padding-left: 2rem; border-left: 2px solid var(--rule); margin-top: 1rem; }
+.comment-respond { margin-top: 3rem; }
+.comment-respond .comment-reply-title { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 1.5rem; }
+.comment-respond .comment-form p { margin-bottom: 1rem; }
+.comment-respond .comment-form label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; }
+.comment-respond .comment-form input[type="text"],
+.comment-respond .comment-form input[type="email"],
+.comment-respond .comment-form input[type="url"],
+.comment-respond .comment-form textarea { width: 100%; border: 1px solid var(--rule); border-radius: 6px; padding: 0.7rem 1rem; font: inherit; transition: border-color .2s; }
+.comment-respond .comment-form input:focus,
+.comment-respond .comment-form textarea:focus { outline: none; border-color: var(--red); }
+.comment-respond .comment-form .submit { background: var(--red); color: var(--white); border: none; padding: 0.75rem 2rem; border-radius: 6px; font-weight: 700; cursor: pointer; transition: background .2s; }
+.comment-respond .comment-form .submit:hover { background: var(--red-dark); }
+
+/* ──── Chatbot Floating Link ──── */
+.amcham-chatbot-link.chatbot-toggle { display: flex; text-decoration: none; }

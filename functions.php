@@ -155,6 +155,63 @@ function amcham_drc_customize_register( $wp_customize ) {
 		'section' => 'amcham_chatbot',
 		'type'    => 'url',
 	) );
+	// About Page Settings
+	$wp_customize->add_section(
+		'amcham_about_page',
+		array(
+			'title'    => __( 'About Page content', 'amcham-drc' ),
+			'priority' => 32,
+		)
+	);
+
+	$about_fields = array(
+		'mission_title' => array( __( 'Mission Title', 'amcham-drc' ), __( 'Our Mission', 'amcham-drc' ), 'text' ),
+		'mission_text'  => array( __( 'Mission Text', 'amcham-drc' ), __( 'To promote and facilitate trade and investment between the United States and the Democratic Republic of Congo by providing advocacy, networking opportunities, and business intelligence to our members.', 'amcham-drc' ), 'textarea' ),
+		'vision_title'  => array( __( 'Vision Title', 'amcham-drc' ), __( 'Our Vision', 'amcham-drc' ), 'text' ),
+		'vision_text'   => array( __( 'Vision Text', 'amcham-drc' ), __( 'To be the leading voice of American business in the DRC, driving sustainable economic development and creating lasting partnerships that benefit both nations.', 'amcham-drc' ), 'textarea' ),
+	);
+
+	foreach ( $about_fields as $id => $field ) {
+		$sanitize_cb = ( 'textarea' === $field[2] ) ? 'sanitize_textarea_field' : 'sanitize_text_field';
+		$wp_customize->add_setting( 'amcham_' . $id, array( 'default' => $field[1], 'sanitize_callback' => $sanitize_cb ) );
+		$wp_customize->add_control(
+			'amcham_' . $id,
+			array(
+				'label'   => $field[0],
+				'section' => 'amcham_about_page',
+				'type'    => $field[2],
+			)
+		);
+	}
+	// Contact Page Settings
+	$wp_customize->add_section(
+		'amcham_contact_page',
+		array(
+			'title'    => __( 'Contact Page content', 'amcham-drc' ),
+			'priority' => 33,
+		)
+	);
+
+	$contact_fields = array(
+		'contact_phone'       => array( __( 'Main Phone', 'amcham-drc' ), '+243 (0) 123 456 789', 'text' ),
+		'contact_hours'       => array( __( 'Business Hours', 'amcham-drc' ), 'Monday - Friday: 9:00 AM - 5:00 PM (CAT)', 'text' ),
+		'contact_address'     => array( __( 'Physical Address', 'amcham-drc' ), "AmCham DRC\nAvenue de la Paix\nKinshasa, Democratic Republic of Congo\nP.O. Box 12345", 'textarea' ),
+		'contact_membership_email' => array( __( 'Membership Email', 'amcham-drc' ), 'membership@amchamdrc.org', 'email' ),
+		'contact_map_url'     => array( __( 'Google Maps Embed URL', 'amcham-drc' ), 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126716.69386178!2d15.2345!3d-4.3217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a6a330b7c8bb73d%3A0x9f7f4c2a6c748d8a!2sKinshasa%2C%20Democratic%20Republic%20of%20the%20Congo!5e0!3m2!1sen!2sus!4v1699900000000', 'url' ),
+	);
+
+	foreach ( $contact_fields as $id => $field ) {
+		$sanitize_cb = ( 'textarea' === $field[2] ) ? 'sanitize_textarea_field' : ( 'url' === $field[2] ? 'esc_url_raw' : 'sanitize_text_field' );
+		$wp_customize->add_setting( 'amcham_' . $id, array( 'default' => $field[1], 'sanitize_callback' => $sanitize_cb ) );
+		$wp_customize->add_control(
+			'amcham_' . $id,
+			array(
+				'label'   => $field[0],
+				'section' => 'amcham_contact_page',
+				'type'    => $field[2] === 'url' ? 'url' : $field[2],
+			)
+		);
+	}
 }
 add_action( 'customize_register', 'amcham_drc_customize_register' );
 
@@ -224,6 +281,128 @@ function amcham_drc_chatbot_proxy( WP_REST_Request $request ) {
 
 	return new WP_REST_Response( array( 'reply' => $reply ), 200 );
 }
+
+/**
+ * Handle Contact Form Submission
+ */
+function amcham_drc_handle_contact_submit() {
+	if ( ! isset( $_POST['amcham_contact_nonce'] ) || ! wp_verify_nonce( $_POST['amcham_contact_nonce'], 'amcham_contact_form' ) ) {
+		wp_die( __( 'Security check failed.', 'amcham-drc' ) );
+	}
+
+	$name    = sanitize_text_field( $_POST['cnt_name'] );
+	$email   = sanitize_email( $_POST['cnt_email'] );
+	$phone   = sanitize_text_field( $_POST['cnt_phone'] ?? '' );
+	$subject = sanitize_text_field( $_POST['cnt_subject'] );
+	$message = sanitize_textarea_field( $_POST['cnt_message'] );
+
+	$admin_email = amcham_drc_theme_mod( 'contact_email', get_option( 'admin_email' ) );
+	$headers     = array( 'Content-Type: text/html; charset=UTF-8', 'Reply-To: ' . $name . ' <' . $email . '>' );
+
+	$body  = '<h2>New Contact Form Submission</h2>';
+	$body .= '<p><strong>Name:</strong> ' . esc_html( $name ) . '</p>';
+	$body .= '<p><strong>Email:</strong> ' . esc_html( $email ) . '</p>';
+	$body .= '<p><strong>Phone:</strong> ' . esc_html( $phone ) . '</p>';
+	$body .= '<p><strong>Subject:</strong> ' . esc_html( $subject ) . '</p>';
+	$body .= '<p><strong>Message:</strong><br>' . nl2br( esc_html( $message ) ) . '</p>';
+
+	wp_mail( $admin_email, '[AmCham DRC] ' . $subject, $body, $headers );
+
+	$redirect = add_query_arg( 'contact_sent', '1', wp_get_referer() );
+	wp_safe_redirect( $redirect );
+	exit;
+}
+add_action( 'admin_post_amcham_contact_submit', 'amcham_drc_handle_contact_submit' );
+add_action( 'admin_post_nopriv_amcham_contact_submit', 'amcham_drc_handle_contact_submit' );
+
+/**
+ * Handle Membership Form Submission
+ */
+function amcham_drc_handle_membership_submit() {
+	if ( ! isset( $_POST['amcham_membership_nonce'] ) || ! wp_verify_nonce( $_POST['amcham_membership_nonce'], 'amcham_membership_form' ) ) {
+		wp_die( __( 'Security check failed.', 'amcham-drc' ) );
+	}
+
+	$name    = sanitize_text_field( $_POST['mem_name'] );
+	$company = sanitize_text_field( $_POST['mem_company'] );
+	$email   = sanitize_email( $_POST['mem_email'] );
+	$phone   = sanitize_text_field( $_POST['mem_phone'] ?? '' );
+	$type    = sanitize_text_field( $_POST['mem_type'] );
+	$message = sanitize_textarea_field( $_POST['mem_message'] );
+
+	$admin_email = amcham_drc_theme_mod( 'contact_membership_email', get_option( 'admin_email' ) );
+	$headers     = array( 'Content-Type: text/html; charset=UTF-8', 'Reply-To: ' . $name . ' <' . $email . '>' );
+
+	$body  = '<h2>New Membership Application</h2>';
+	$body .= '<p><strong>Name:</strong> ' . esc_html( $name ) . '</p>';
+	$body .= '<p><strong>Company:</strong> ' . esc_html( $company ) . '</p>';
+	$body .= '<p><strong>Email:</strong> ' . esc_html( $email ) . '</p>';
+	$body .= '<p><strong>Phone:</strong> ' . esc_html( $phone ) . '</p>';
+	$body .= '<p><strong>Membership Type:</strong> ' . esc_html( $type ) . '</p>';
+	$body .= '<p><strong>About Business:</strong><br>' . nl2br( esc_html( $message ) ) . '</p>';
+
+	wp_mail( $admin_email, '[AmCham DRC] Membership Application - ' . $company, $body, $headers );
+
+	$redirect = add_query_arg( 'membership_sent', '1', wp_get_referer() );
+	wp_safe_redirect( $redirect );
+	exit;
+}
+add_action( 'admin_post_amcham_membership_submit', 'amcham_drc_handle_membership_submit' );
+add_action( 'admin_post_nopriv_amcham_membership_submit', 'amcham_drc_handle_membership_submit' );
+
+/**
+ * Handle Event RSVP Submission
+ */
+function amcham_drc_handle_rsvp_submit() {
+	if ( ! isset( $_POST['amcham_rsvp_nonce'] ) || ! wp_verify_nonce( $_POST['amcham_rsvp_nonce'], 'amcham_rsvp_form' ) ) {
+		wp_die( __( 'Security check failed.', 'amcham-drc' ) );
+	}
+
+	$name     = sanitize_text_field( $_POST['rsvp_name'] );
+	$email    = sanitize_email( $_POST['rsvp_email'] );
+	$company  = sanitize_text_field( $_POST['rsvp_company'] ?? '' );
+	$guests   = absint( $_POST['rsvp_guests'] ?? 1 );
+	$event_id = absint( $_POST['rsvp_event_id'] );
+	$event    = get_the_title( $event_id );
+
+	$admin_email = amcham_drc_theme_mod( 'contact_email', get_option( 'admin_email' ) );
+	$headers     = array( 'Content-Type: text/html; charset=UTF-8', 'Reply-To: ' . $name . ' <' . $email . '>' );
+
+	$body  = '<h2>New Event RSVP</h2>';
+	$body .= '<p><strong>Event:</strong> ' . esc_html( $event ) . '</p>';
+	$body .= '<p><strong>Name:</strong> ' . esc_html( $name ) . '</p>';
+	$body .= '<p><strong>Email:</strong> ' . esc_html( $email ) . '</p>';
+	$body .= '<p><strong>Company:</strong> ' . esc_html( $company ) . '</p>';
+	$body .= '<p><strong>Number of Guests:</strong> ' . esc_html( $guests ) . '</p>';
+
+	wp_mail( $admin_email, '[AmCham DRC] RSVP - ' . $event, $body, $headers );
+
+	// Also send confirmation to attendee
+	$confirm_body  = '<h2>Confirmation de réservation</h2>';
+	$confirm_body .= '<p>Bonjour ' . esc_html( $name ) . ',</p>';
+	$confirm_body .= '<p>Votre réservation pour l\'événement <strong>' . esc_html( $event ) . '</strong> a bien été enregistrée.</p>';
+	$confirm_body .= '<p>Nombre de places : <strong>' . esc_html( $guests ) . '</strong></p>';
+	$confirm_body .= '<p>À bientôt !<br>AmCham DRC</p>';
+
+	wp_mail( $email, '[AmCham DRC] Confirmation - ' . $event, $confirm_body, array( 'Content-Type: text/html; charset=UTF-8' ) );
+
+	$redirect = add_query_arg( 'rsvp_sent', '1', get_permalink( $event_id ) );
+	wp_safe_redirect( $redirect );
+	exit;
+}
+add_action( 'admin_post_amcham_rsvp_submit', 'amcham_drc_handle_rsvp_submit' );
+add_action( 'admin_post_nopriv_amcham_rsvp_submit', 'amcham_drc_handle_rsvp_submit' );
+
+/**
+ * Enable comments on Events
+ */
+function amcham_drc_enable_event_comments( $open, $post_id ) {
+	if ( get_post_type( $post_id ) === 'amcham_event' ) {
+		return true;
+	}
+	return $open;
+}
+add_filter( 'comments_open', 'amcham_drc_enable_event_comments', 10, 2 );
 
 /**
  * Custom Post Types

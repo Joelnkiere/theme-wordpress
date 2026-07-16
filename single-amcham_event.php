@@ -66,32 +66,88 @@ get_header();
 				</div>
 				
 				<div class="single-article__footer">
-					<div class="single-article__nav">
-						<?php
-						$prev_post = get_previous_post();
-						if ( $prev_post ) :
-						?>
-							<a href="<?php echo esc_url( get_permalink( $prev_post->ID ) ); ?>" class="single-article__nav-prev">
-								<span style="color: var(--ink-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;"><?php esc_html_e( 'Previous Event', 'amcham-drc' ); ?></span>
-								<strong><?php echo esc_html( get_the_title( $prev_post->ID ) ); ?></strong>
-							</a>
-						<?php else : ?>
-							<div></div>
-						<?php endif; ?>
+				<div class="single-article__nav">
+					<?php
+					$prev_post = get_previous_post();
+					if ( $prev_post ) :
+					?>
+						<a href="<?php echo esc_url( get_permalink( $prev_post->ID ) ); ?>" class="single-article__nav-prev">
+							<span style="color: var(--ink-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;"><?php esc_html_e( 'Previous Event', 'amcham-drc' ); ?></span>
+							<strong><?php echo esc_html( get_the_title( $prev_post->ID ) ); ?></strong>
+						</a>
+					<?php else : ?>
+						<div></div>
+					<?php endif; ?>
 
-						<?php
-						$next_post = get_next_post();
-						if ( $next_post ) :
-						?>
-							<a href="<?php echo esc_url( get_permalink( $next_post->ID ) ); ?>" class="single-article__nav-next">
-								<span style="color: var(--ink-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;"><?php esc_html_e( 'Next Event', 'amcham-drc' ); ?></span>
-								<strong><?php echo esc_html( get_the_title( $next_post->ID ) ); ?></strong>
-							</a>
-						<?php endif; ?>
-					</div>
+					<?php
+					$next_post = get_next_post();
+					if ( $next_post ) :
+					?>
+						<a href="<?php echo esc_url( get_permalink( $next_post->ID ) ); ?>" class="single-article__nav-next">
+							<span style="color: var(--ink-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;"><?php esc_html_e( 'Next Event', 'amcham-drc' ); ?></span>
+							<strong><?php echo esc_html( get_the_title( $next_post->ID ) ); ?></strong>
+						</a>
+					<?php endif; ?>
 				</div>
 			</div>
-		</section>
+		</div>
+	</section>
+
+	<!-- RSVP Form -->
+	<section class="section" style="background: var(--paper);">
+		<div class="shell" style="max-width: 700px; margin: 0 auto;">
+			<div class="section-heading section-heading--center">
+				<h2><?php esc_html_e( 'Réserver une place', 'amcham-drc' ); ?></h2>
+				<p><?php esc_html_e( 'Remplissez le formulaire ci-dessous pour confirmer votre participation à cet événement.', 'amcham-drc' ); ?></p>
+			</div>
+			<div class="amcham-form-card">
+				<?php if ( isset( $_GET['rsvp_sent'] ) && '1' === $_GET['rsvp_sent'] ) : ?>
+					<div class="amcham-form__success">
+						✓ <?php esc_html_e( 'Merci ! Votre réservation a été enregistrée. Vous recevrez un e-mail de confirmation.', 'amcham-drc' ); ?>
+					</div>
+				<?php else : ?>
+				<form class="amcham-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+					<?php wp_nonce_field( 'amcham_rsvp_form', 'amcham_rsvp_nonce' ); ?>
+					<input type="hidden" name="action" value="amcham_rsvp_submit">
+					<input type="hidden" name="rsvp_event_id" value="<?php echo esc_attr( get_the_ID() ); ?>">
+					<div class="amcham-form__row">
+						<div class="amcham-form__field">
+							<label for="rsvp_name"><?php esc_html_e( 'Nom complet *', 'amcham-drc' ); ?></label>
+							<input type="text" id="rsvp_name" name="rsvp_name" required placeholder="<?php esc_attr_e( 'Votre nom', 'amcham-drc' ); ?>">
+						</div>
+						<div class="amcham-form__field">
+							<label for="rsvp_email"><?php esc_html_e( 'Adresse e-mail *', 'amcham-drc' ); ?></label>
+							<input type="email" id="rsvp_email" name="rsvp_email" required placeholder="votre@email.com">
+						</div>
+					</div>
+					<div class="amcham-form__row">
+						<div class="amcham-form__field">
+							<label for="rsvp_company"><?php esc_html_e( 'Entreprise', 'amcham-drc' ); ?></label>
+							<input type="text" id="rsvp_company" name="rsvp_company" placeholder="<?php esc_attr_e( 'Votre entreprise', 'amcham-drc' ); ?>">
+						</div>
+						<div class="amcham-form__field">
+							<label for="rsvp_guests"><?php esc_html_e( 'Nombre de places *', 'amcham-drc' ); ?></label>
+							<input type="number" id="rsvp_guests" name="rsvp_guests" value="1" min="1" max="10" required>
+						</div>
+					</div>
+					<button type="submit" class="button button--red"><?php esc_html_e( 'Confirmer ma réservation', 'amcham-drc' ); ?> →</button>
+				</form>
+				<?php endif; ?>
+			</div>
+		</div>
+	</section>
+
+	<!-- Comments -->
+	<section class="section">
+		<div class="shell" style="max-width: 860px; margin: 0 auto;">
+			<?php
+			if ( comments_open() || get_comments_number() ) :
+				comments_template();
+			endif;
+			?>
+		</div>
+	</section>
+
 	<?php endwhile; ?>
 </main>
 <?php get_footer(); ?>

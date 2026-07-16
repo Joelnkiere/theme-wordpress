@@ -8,7 +8,15 @@
 <footer class="site-footer">
 	<div class="shell site-footer__top">
 		<div class="site-footer__brand">
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/amcham-logo.png' ); ?>" alt="" width="60" height="60">
+			<?php 
+			if ( has_custom_logo() ) {
+				$custom_logo_id = get_theme_mod( 'custom_logo' );
+				$logo_url = wp_get_attachment_image_url( $custom_logo_id, 'full' );
+			} else {
+				$logo_url = get_template_directory_uri() . '/assets/images/amcham-logo.png';
+			}
+			?>
+			<img src="<?php echo esc_url( $logo_url ); ?>" alt="AmCham DRC" style="max-width: 60px; max-height: 60px; object-fit: contain;">
 			<div><strong>AmCham DRC</strong><span><?php esc_html_e( 'American Chamber of Commerce', 'amcham-drc' ); ?></span></div>
 		</div>
 		<div class="site-footer__contact">
@@ -46,35 +54,10 @@
 	</div>
 </footer>
 
-<?php if ( get_theme_mod( 'amcham_enable_chatbot', false ) ) : 
-	$chatbot_title = get_theme_mod( 'amcham_chatbot_title', 'AmCham Assistant' );
-	// Use WP REST proxy — hides the real third-party API key/URL from browser source.
-	$proxy_url = rest_url( 'amcham/v1/chat' );
-?>
-<div id="amcham-chatbot" class="amcham-chatbot" data-api-url="<?php echo esc_url( $proxy_url ); ?>">
-	<button id="amcham-chatbot-toggle" class="chatbot-toggle" aria-label="<?php esc_attr_e( 'Open Chat', 'amcham-drc' ); ?>">
-		<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-	</button>
-	<div id="amcham-chatbot-window" class="chatbot-window">
-		<div class="chatbot-header">
-			<h3><?php echo esc_html( $chatbot_title ); ?></h3>
-			<button id="amcham-chatbot-close" class="chatbot-close" aria-label="<?php esc_attr_e( 'Close Chat', 'amcham-drc' ); ?>">&times;</button>
-		</div>
-		<div id="amcham-chatbot-messages" class="chatbot-messages">
-			<div class="chatbot-message chatbot-message--bot">
-				<div class="chatbot-bubble">
-					<?php esc_html_e( 'Hello! How can I help you today?', 'amcham-drc' ); ?>
-				</div>
-			</div>
-		</div>
-		<div class="chatbot-input-area">
-			<input type="text" id="amcham-chatbot-input" placeholder="<?php esc_attr_e( 'Type your message...', 'amcham-drc' ); ?>" aria-label="<?php esc_attr_e( 'Chat input', 'amcham-drc' ); ?>">
-			<button id="amcham-chatbot-send" class="chatbot-send" aria-label="<?php esc_attr_e( 'Send message', 'amcham-drc' ); ?>">
-				<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-			</button>
-		</div>
-	</div>
-</div>
+<?php if ( get_theme_mod( 'amcham_enable_chatbot', false ) ) : ?>
+<a href="<?php echo esc_url( home_url( '/chatbot/' ) ); ?>" id="amcham-chatbot-link" class="amcham-chatbot-link chatbot-toggle" aria-label="<?php esc_attr_e( 'Open Chat', 'amcham-drc' ); ?>">
+	<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+</a>
 <?php endif; ?>
 
 <?php wp_footer(); ?>
