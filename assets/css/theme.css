@@ -667,4 +667,39 @@ h3 { font-family: var(--serif); font-size: 1.55rem; letter-spacing: -.035em; lin
 .comment-respond .comment-form .submit:hover { background: var(--red-dark); }
 
 /* ──── Chatbot Floating Link ──── */
-.amcham-chatbot-link.chatbot-toggle { display: flex; text-decoration: none; }
+.amcham-chatbot-link.chatbot-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 65px;
+  height: 65px;
+  background-color: var(--red);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(178,31,53,0.4);
+  z-index: 9999;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.amcham-chatbot-link.chatbot-toggle:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(178,31,53,0.5);
+  background-color: var(--red-dark);
+  color: var(--white);
+}
+
+.amcham-chatbot-link.chatbot-toggle svg {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}
+
+/* Fix header button hover color */
+.primary-navigation a.button:hover,
+.primary-navigation .current-menu-item > a.button {
+    color: var(--white);
+}
