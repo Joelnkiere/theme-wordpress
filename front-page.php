@@ -32,7 +32,7 @@ $asset_uri     = get_template_directory_uri() . '/assets/images/';
 			<p class="eyebrow eyebrow--light"><?php echo esc_html( $hero_eyebrow ); ?></p>
 			<h1 id="hero-title"><?php echo esc_html( $hero_title ); ?></h1>
 			<p class="hero__lead"><?php echo esc_html( $hero_text ); ?></p>
-			<div class="hero__actions"><a class="button button--red" href="<?php echo esc_url( home_url( '/membership/' ) ); ?>"><?php esc_html_e( 'Join now', 'amcham-drc' ); ?><span>→</span></a><a class="text-link text-link--light" href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'About us', 'amcham-drc' ); ?></a></div>
+			<div class="hero__actions"><a class="button button--red" href="<?php echo esc_url( home_url( '/become-a-member/' ) ); ?>"><?php esc_html_e( 'Join now', 'amcham-drc' ); ?><span>→</span></a><a class="text-link text-link--light" href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'About us', 'amcham-drc' ); ?></a></div>
 			<div class="hero__stats" aria-label="<?php esc_attr_e( 'AmCham DRC at a glance', 'amcham-drc' ); ?>">
 				<div><strong>50+</strong><span><?php esc_html_e( 'Members', 'amcham-drc' ); ?></span></div>
 				<div><strong>12</strong><span><?php esc_html_e( 'Events / yr', 'amcham-drc' ); ?></span></div>
@@ -65,7 +65,7 @@ $asset_uri     = get_template_directory_uri() . '/assets/images/';
 				);
 				foreach ( $services as $service ) :
 					?>
-					<article class="service-card"><img src="<?php echo esc_url( $asset_uri . $service[0] ); ?>" alt=""><div><h3><?php echo esc_html( $service[1] ); ?></h3><p><?php echo esc_html( $service[2] ); ?></p><a class="text-link" href="<?php echo esc_url( home_url( '/membership/' ) ); ?>"><?php esc_html_e( 'Learn more', 'amcham-drc' ); ?> →</a></div></article>
+					<article class="service-card"><img src="<?php echo esc_url( $asset_uri . $service[0] ); ?>" alt=""><div><h3><?php echo esc_html( $service[1] ); ?></h3><p><?php echo esc_html( $service[2] ); ?></p><a class="text-link" href="<?php echo esc_url( home_url( '/become-a-member/' ) ); ?>"><?php esc_html_e( 'Learn more', 'amcham-drc' ); ?> →</a></div></article>
 				<?php endforeach; ?>
 			</div>
 		</div>
@@ -200,7 +200,7 @@ $asset_uri     = get_template_directory_uri() . '/assets/images/';
 			<h2><?php echo esc_html( $cta_title ); ?></h2>
 			<p><?php echo esc_html( $cta_desc ); ?></p>
 			<div>
-				<a class="button button--red" href="<?php echo esc_url( home_url( '/membership/' ) ); ?>"><?php esc_html_e( 'Apply now', 'amcham-drc' ); ?> <span>→</span></a>
+				<a class="button button--red" href="<?php echo esc_url( home_url( '/become-a-member/' ) ); ?>"><?php esc_html_e( 'Apply now', 'amcham-drc' ); ?> <span>→</span></a>
 				<a class="button button--ghost" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Contact us', 'amcham-drc' ); ?></a>
 			</div>
 		</div>

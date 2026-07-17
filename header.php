@@ -47,7 +47,7 @@
 					)
 				);
 				?>
-				<a href="<?php echo esc_url( home_url( '/membership/' ) ); ?>" class="nav-cta-link button button--red" style="min-height: 40px; padding: 0 16px; font-size: 11px; flex-shrink: 0; margin-bottom: 0;">
+				<a href="<?php echo esc_url( home_url( '/become-a-member/' ) ); ?>" class="nav-cta-link button button--red" style="min-height: 40px; padding: 0 16px; font-size: 11px; flex-shrink: 0; margin-bottom: 0;">
 					<?php esc_html_e( 'Nous rejoindre', 'amcham-drc' ); ?>
 				</a>
 			</div>
